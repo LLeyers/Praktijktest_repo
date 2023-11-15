@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Date and Time</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 24px;
+        }
+        #clock {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Date and Time</h1>
+    <p id="current-time"></p>
+    <img src="/static/clock_image.png" id="clock" alt="Clock Image" />
+
+    <script>
+        // Function to update the clock hands
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var hourAngle = (360 / 12) * (hours % 12) + (360 / 12) * (minutes / 60);
+            var minuteAngle = (360 / 60) * minutes + (360 / 60) * (seconds / 60);
+            var secondAngle = (360 / 60) * seconds;
+
+            // Set the rotation of clock hands
+            document.getElementById('clock').style.transform = `rotate(${hourAngle}deg)`;
+            document.getElementById('clock').style.transition = 'transform 1s linear';
+
+            // Display the current date and time
+            document.getElementById('current-time').innerText = now.toLocaleString();
+        }
+
+        // Call updateClock initially to show the time and start the clock
+        updateClock();
+
+        // Update the clock and time every second
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

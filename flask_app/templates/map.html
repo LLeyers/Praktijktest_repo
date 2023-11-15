@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Microweb App</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Set the map container to occupy most of the screen */
+        #map {
+            position: absolute;
+            top: 200px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Showing map</h1>
+    <h2>Current Location</h2>
+    <p id="current-location">Loading...</p>
+
+    <!-- Create a div element to hold the map with a specific ID, e.g., 'map' -->
+    <div id="map"></div>
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Your custom JavaScript for initializing the map and showing current location -->
+    <script>
+        var map = L.map('map', { dragging: true }).setView([50.8503, 4.3517], 13); // Coordinates for Brussels, Belgium and zoom level
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Get the current map center and display it in the "Current Location" section
+        map.on('move', function (e) {
+            var currentCenter = map.getCenter();
+            document.getElementById('current-location').innerText = 'Current Location: Latitude ' + currentCenter.lat.toFixed(4) + ', Longitude ' + currentCenter.lng.toFixed(4);
+        });
+    </script>
+</body>
+</html>
